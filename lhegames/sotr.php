@@ -134,7 +134,7 @@
 			<b>Uncover Living History:</b> Discover a hidden city and explore the biggest hub space ever found in a Tomb
 			Raider game.
 		</p>
-		<img src="images/screenshot/sotr/SOTTR-Combat1-616x213.gif">
+		<img src="images/screenshot/sotr/SOTTR-Combat1-616x213.gif" width="616" height="213">
 		<hr>
 		<h5>System Requirement</h5>
 		<div class="sys_req">

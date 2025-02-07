@@ -133,7 +133,7 @@
 			supernatural predators lurking in the shadows of densely populated towns.
 			Invest your rewards to upgrade your weaponry and buy custom armour, or spend them away in horse races, card
 			games, fist fighting, and other pleasures the night brings.</p>
-		<img src="images/screenshot/witcher3/W3_1.gif">
+		<img src="images/screenshot/witcher3/W3_1.gif" width="616">
 		<hr>
 		<h5>System Requirement</h5>
 		<div class="sys_req">
