@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>function</title>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.0.0.js"></script>
+	<script type="text/javascript">
+		function deletetext(a) {
+			let argument = a.toString().replace(a,' ')
+			return argument;
+		}
+	</script>
+</head>
+<body>
+	<h1>INI TEKS TANPA DELETE FUNTION</h1>
+	<H3>INI TEKS DENGAN DELETE FUNCTION</H3>
+	JIKA KATA "DENGAN" HILANG MAKA FUNCTION BERHASIL
+	<script type="text/javascript">
+		document.querySelector('H3').textContent = document.querySelector('H3').textContent.deletetext('DENGAN')
+	</script>
+</body>
+</html>

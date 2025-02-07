@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html class="js ss-loaded" lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <style id="mailtoui-styles" type="text/css">
+        .mailtoui-modal {
+            background-color: #000;
+            background-color: rgba(0, 0, 0, .4);
+            bottom: 0;
+            color: #303131;
+            display: none;
+            height: 100%;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 100%;
+            z-index: 1000
+        }
+
+        .mailtoui-modal-content {
+            -webkit-animation: mailtoui-appear .4s;
+            animation: mailtoui-appear .4s;
+            background-color: #f1f5f8;
+            border-radius: 8px;
+            bottom: auto;
+            -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
+            left: 50%;
+            max-height: calc(100% - 100px);
+            overflow: auto;
+            padding: 0;
+            position: fixed;
+            right: -45%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%)
+        }
+
+        .mailtoui-modal-content:focus,
+        .mailtoui-modal-content:hover {
+            overflow-y: auto
+        }
+
+        @media only screen and (min-width:768px) {
+            .mailtoui-modal-content {
+                right: auto
+            }
+        }
+
+        .mailtoui-modal-head {
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            background-color: #fff;
+            clear: both;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            min-width: 0;
+            padding: 10px 20px
+        }
+
+        .mailtoui-modal-title {
+            color: #303131;
+            -webkit-box-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            font-family: sans-serif;
+            font-size: 120%;
+            font-weight: 700;
+            margin: 0;
+            overflow: hidden;
+            padding: 0;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .mailtoui-modal-close {
+            color: #aaa;
+            -webkit-box-flex: initial;
+            -ms-flex: initial;
+            flex: initial;
+            font-size: 38px;
+            margin-left: 20px;
+            position: relative;
+            text-align: right;
+            text-decoration: none;
+            top: -4px
+        }
+
+        .mailtoui-modal-close:focus,
+        .mailtoui-modal-close:hover {
+            color: #000;
+            cursor: pointer;
+            font-weight: 700;
+            outline: 0
+        }
+
+        .mailtoui-modal-body {
+            height: 100%;
+            padding: 20px
+        }
+
+        .mailtoui-button {
+            color: #333;
+            text-decoration: none
+        }
+
+        .mailtoui-button:focus {
+            outline: 0
+        }
+
+        .mailtoui-button:focus .mailtoui-button-content {
+            background-color: #555;
+            color: #fff
+        }
+
+        .mailtoui-button-content {
+            background-color: #fff;
+            border: none;
+            border-radius: 8px;
+            -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .18);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .18);
+            margin-bottom: 20px;
+            overflow: hidden;
+            padding: 15px 20px;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .mailtoui-button-content:hover {
+            background-color: #555;
+            color: #fff
+        }
+
+        .mailtoui-button:last-child .mailtoui-button-content {
+            margin-bottom: 0
+        }
+
+        .mailtoui-button-icon {
+            display: inline-block;
+            font-weight: 700;
+            position: relative;
+            top: 4px
+        }
+
+        .mailtoui-button-icon svg {
+            height: 24px;
+            width: 24px
+        }
+
+        .mailtoui-button-text {
+            display: inline-block;
+            margin-left: 5px;
+            position: relative;
+            top: -2px
+        }
+
+        .mailtoui-copy {
+            border-radius: 8px;
+            -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .18);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .18);
+            height: 59px;
+            margin-top: 20px;
+            position: relative
+        }
+
+        .mailtoui-button-copy {
+            background-color: #fff;
+            border: none;
+            border-bottom-left-radius: 8px;
+            border-top-left-radius: 8px;
+            bottom: 21px;
+            color: #333;
+            font-size: 100%;
+            height: 100%;
+            left: 0;
+            overflow: hidden;
+            padding: 15px 20px;
+            position: absolute;
+            text-overflow: ellipsis;
+            top: 0;
+            white-space: nowrap;
+            width: 120px
+        }
+
+        .mailtoui-button-copy:focus,
+        .mailtoui-button-copy:hover {
+            background-color: #555;
+            color: #fff;
+            cursor: pointer;
+            outline: 0
+        }
+
+        .mailtoui-button-copy-clicked,
+        .mailtoui-button-copy-clicked:focus,
+        .mailtoui-button-copy-clicked:hover {
+            background-color: #1f9d55;
+            color: #fff
+        }
+
+        .mailtoui-button-copy-clicked .mailtoui-button-icon,
+        .mailtoui-button-copy-clicked:focus .mailtoui-button-icon,
+        .mailtoui-button-copy-clicked:hover .mailtoui-button-icon {
+            display: none;
+            visibility: hidden
+        }
+
+        .mailtoui-button-copy-clicked .mailtoui-button-text,
+        .mailtoui-button-copy-clicked:focus .mailtoui-button-text,
+        .mailtoui-button-copy-clicked:hover .mailtoui-button-text {
+            color: #fff;
+            top: 2px
+        }
+
+        .mailtoui-email-address {
+            background-color: #d8dcdf;
+            border: none;
+            border-radius: 8px;
+            -webkit-box-shadow: unset;
+            box-shadow: unset;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            color: #48494a;
+            font-size: 100%;
+            height: 100%;
+            overflow: hidden;
+            padding: 20px 20px 20px 140px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%
+        }
+
+        .mailtoui-brand {
+            color: #888;
+            font-size: 80%;
+            margin-top: 20px;
+            text-align: center
+        }
+
+        .mailtoui-brand a {
+            color: #888
+        }
+
+        .mailtoui-brand a:focus,
+        .mailtoui-brand a:hover {
+            font-weight: 700;
+            outline: 0
+        }
+
+        .mailtoui-no-scroll {
+            overflow: hidden;
+            position: fixed;
+            width: 100%
+        }
+
+        .mailtoui-is-hidden {
+            display: none;
+            visibility: hidden
+        }
+
+        @-webkit-keyframes mailtoui-appear {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate(-50%, -50%) scale(0, 0);
+                transform: translate(-50%, -50%) scale(0, 0)
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: translate(-50%, -50%) scale(1, 1);
+                transform: translate(-50%, -50%) scale(1, 1)
+            }
+        }
+
+        @keyframes mailtoui-appear {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate(-50%, -50%) scale(0, 0);
+                transform: translate(-50%, -50%) scale(0, 0)
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: translate(-50%, -50%) scale(1, 1);
+                transform: translate(-50%, -50%) scale(1, 1)
+            }
+        }
+    </style>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Weiven</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.amrdesigns.art/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.amrdesigns.art/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://www.amrdesigns.art/favicon-16x16.png">
+</head>
+
+<body id="top">
+
+
+    <!-- # preloader
+    ================================================== -->
+    <div id="preloader" style="opacity: 0; visibility: hidden; display: none;">
+        <div id="loader" style="opacity: 0;">
+        </div>
+    </div>
+
+
+    <!-- # page wrap
+    ================================================== -->
+    <div class="s-pagewrap">
+
+        <div class="circles">
+            <span style="opacity: 0.1;"></span>
+            <span style="opacity: 0.1;"></span>
+            <span style="opacity: 0.1;"></span>
+            <span style="opacity: 0.1;"></span>
+            <span style="opacity: 0.1;"></span>
+        </div>
+
+
+        <!-- ## site header 
+        ================================================== -->
+        <header class="s-header" style="transform: translateY(0px); opacity: 1;">
+
+            <div class="header-mobile">
+                <span class="mobile-home-link"><a href="">Weiven</a></span>
+                <a class="mobile-menu-toggle" href="#0"><span>Menu</span></a>
+            </div>
+
+            <div class="row wide main-nav-wrap">
+                <nav class="column lg-12 main-nav">
+                    <ul>
+                        <li><a href="#top" class="home-link smoothscroll">Home</a></li>
+                        <li class="current"><a href="#intro" class="smoothscroll">Intro</a></li>
+                        <li><a href="#about" class="smoothscroll">About</a></li>
+                        <li><a href="#works" class="smoothscroll">Works</a></li>
+                        <li><a href="#contact" class="smoothscroll">Contact Me</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        </header> <!-- end s-header -->
+
+
+        <!-- ## main content
+        ==================================================- -->
+        <main class="s-content">
+
+
+            <!-- ### intro
+            ================================================== -->
+            <section id="intro" class="s-intro target-section">
+
+                <div class="row intro-content wide">
+
+                    <div class="column">
+                        <div class="text-pretitle with-line" style="transform: translateX(0px); opacity: 1;">
+                            Hello World
+                        </div>
+
+                        <h1 class="text-huge-title" style="transform: translateX(0px); opacity: 1;">
+                            I am Adi,<br>
+                            a self-learner <br>
+                            with high curiousity<br>
+                        </h1>
+                    </div>
+
+                </div> <!-- end intro content -->
+
+                <a href="#about" class="intro-scrolldown smoothscroll" style="transform: translateY(0px); opacity: 1;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                        fill-rule="evenodd" clip-rule="evenodd">
+                        <path
+                            d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z">
+                        </path>
+                    </svg>
+                </a>
+
+            </section> <!-- end s-intro -->
+
+
+            <!-- ### about
+            ================================================== -->
+            <section id="about" class="s-about target-section">
+
+
+                <div class="row about-info wide" data-animate-block="">
+
+                    <div class="column lg-6 md-12 about-info__pic-block">
+                        <img src="imgs/IMG20151222141238.jpg" alt="" class="about-info__pic" data-animate-el="">
+                    </div>
+
+                    <div class="column lg-6 md-12">
+                        <div class="about-info__text">
+
+                            <h2 class="text-pretitle with-line" data-animate-el="">
+                                About
+                            </h2>
+                            <p class="attention-getter" data-animate-el="">
+                                Curious and eager to learn, I’m skilled in front-end web development (HTML, CSS,
+                                JavaScript) and experienced with Photoshop, DaVinci Resolve, and Stable Diffusion.
+                                I develop projects with RPGMaker and Ren'Py, dabble in game reverse engineering,
+                                and create Rainmeter widgets. Passionate about merging creativity and technical skills
+                                to bring ideas to life.
+                                <a target="_blank" href="" class="btn btn--medium u-fullwidth"
+                                    data-animate-el="">Download CV</a>
+
+                            </p>
+                        </div>
+                    </div>
+                </div> <!-- about-info -->
+
+
+                <div class="row about-expertise" data-animate-block="">
+                    <div class="column lg-12">
+
+                        <h2 class="text-pretitle" data-animate-el="">Expertise</h2>
+
+                        <ul class="skills-list h1" data-animate-el="">
+                            <li>Front-end Website</li>
+                            <li>Photoshop</li>
+                            <li>Adobe Animate</li>
+                            <li>Davinci Resolve</li>
+                            <li>Stable Diffusion</li>
+                            <li>RPG Maker</li>
+                            <li>Renpy</li>
+                            <li>Rainmeter</li>
+                        </ul>
+
+                    </div>
+                </div> <!-- end about-expertise -->
+
+
+                <div class="row about-timelines" data-animate-block="">
+
+                    <div class="column lg-6 tab-12">
+
+                        <h2 class="text-pretitle" data-animate-el="">
+                            Education
+                        </h2>
+
+                        <div class="timeline" data-animate-el="">
+
+                            <div class="timeline__block">
+                                <div class="timeline__bullet"></div>
+                                <div class="timeline__header">
+                                    <h4 class="timeline__title">Senior High School of Kedungwuni 1</h4>
+                                    <h5 class="timeline__meta">Social Studies</h5>
+                                    <p class="timeline__timeframe">July 2018</p>
+                                </div>
+                                <div class="timeline__desc">
+                                    <p>As a Social Studies student in high school,
+                                        I have learned how to work well in teams using my knowledge of social topics.
+                                        I often collaborate with others on projects that involve solving problems,
+                                        understanding social issues, and making decisions together.
+                                        My understanding of how societies and cultures work helps me
+                                        contribute effectively in group settings.
+                                        These skills are useful where teamwork is important to achieve goals.</p>
+                                </div>
+
+                            </div> <!-- end timeline -->
+                        </div> <!-- end timeline -->
+
+                    </div> <!-- end column -->
+                </div> <!-- end about-timelines -->
+            </section> <!-- end s-about -->
+            <section id="works" class="s-works target-section">
+                <div class="row works-portfolio">
+
+                    <div class="column lg-12 ss-animated" data-animate-block="">
+
+                        <h2 class="text-pretitle" data-animate-el="" style="opacity: 1; transform: translateY(0px);">
+                            Recent Works
+                        </h2>
+                        <p class="h1" data-animate-el="" style="opacity: 1; transform: translateY(0px);">
+                            Here are some of my favorite projects I have done lately. Feel free to check them out.
+                        </p>
+
+                        <ul class="folio-list row block-lg-one-half block-stack-on-1000">
+
+                            <li class="folio-list__item column" data-animate-el=""
+                                style="opacity: 1; transform: translateY(0px);">
+                                <a class="folio-list__item-link" href="lhegames" target="_blank">
+                                    <div class="folio-list__item-pic">
+                                        <img src="\lhegames\favicon.ico" alt="Web Template">
+                                    </div>
+
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            Web Game Store
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            Lhegames
+                                        </div>
+                                    </div>
+                                </a>
+                            </li> <!--end folio-list__item -->
+
+                            <li class="folio-list__item column" data-animate-el=""
+                                style="opacity: 1; transform: translateY(0px);">
+                                <a class="folio-list__item-link" href="ricefld" target="_blank">
+                                    <div class="folio-list__item-pic">
+                                        <img src="ricefld/favicon.png" alt="">
+                                    </div>
+
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            Single Static Web
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            RICE FLD
+                                        </div>
+                                    </div>
+                                </a>
+                            </li> <!--end folio-list__item -->
+
+                            <li class="folio-list__item column" data-animate-el=""
+                                style="opacity: 1; transform: translateY(0px);">
+                                <a class="folio-list__item-link imgs" href="https://www.instagram.com/p/BVVAcZ_ldjo/" target="_blank">
+                                    <div class="folio-list__item-pic">
+                                        <img src="imgs/vape liquid.jpg" alt="Vape Liquid">
+                                    </div>
+
+                                    <div class="folio-list__item-text">
+                                        <div class="folio-list__item-cat">
+                                            Product Design
+                                        </div>
+                                        <div class="folio-list__item-title">
+                                            Vape Liquid
+                                        </div>
+                                    </div>
+                                </a>
+                                <a class="folio-list__proj-link" href="#" title="project link">
+                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                                            fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                                    </svg>
+                                </a>
+                            </li> <!--end folio-list__item -->
+
+                        </ul> <!-- end folio-list -->
+
+                    </div> <!-- end column -->
+                </div> <!-- end works-portfolio -->
+            </section>
+
+            <!-- ### contact
+            ================================================== -->
+            <section id="contact" class="s-contact target-section">
+                <div class="row contact-bottom">
+                    <div class="column lg-3 md-5 tab-6 stack-on-550 contact-block">
+                        <h3 class="text-pretitle">Reach me at</h3>
+                        <p class="contact-links">
+                            <a href="mailto:adi.ryan67@gmail.com" class="mailtoui">adi.ryan67@gmail.com</a> <br>
+                            <a href="tel:+62895422843605" target="_blank">+62895422843605</a>
+                            <a href="https://wa.me/62895422843605" target="_blank">Whatsapp</a>
+                        </p>
+                    </div>
+                    <div class="column lg-4 md-12 contact-block">
+                        <a href="mailto:adi.ryan67@gmail.com"
+                            class="mailtoui btn btn--medium u-fullwidth contact-btn">Say
+                            Hello.</a>
+                    </div>
+                </div> <!-- end contact-bottom -->
+
+            </section> <!-- end contact -->
+
+        </main> <!-- end s-content -->
+
+
+        <!-- ## footer
+        ================================================== -->
+        <footer class="s-footer">
+
+            <div class="row">
+                <div class="column ss-copyright">
+                    <span>© Ryan Nugraha Adhithama</span>
+
+                    <div class="ss-go-top">
+                        <a class="smoothscroll" title="Back to Top" href="#top">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill-rule="evenodd"
+                                clip-rule="evenodd">
+                                <path
+                                    d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </footer> <!-- end s-footer -->
+
+    </div> <!-- end -s-pagewrap -->
+    <!-- Java Script
+    ================================================== -->
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
