@@ -3700,7 +3700,8 @@ img.u-pull-left {
 
 .folio-list__item-text::before,
 .folio-list__item-title,
-.folio-list__item-cat {
+.folio-list__item-cat,
+.folio-list__item-desc {
     transition : all, 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
@@ -3726,6 +3727,12 @@ img.u-pull-left {
     font-family : var(--font-1);
     font-weight : 500;
     font-size   : var(--text-lg);
+}
+.folio-list__item-desc {
+    font-size   : var(--text-sm);
+    color       : var(--color-text-light);
+    line-height : var(--vspace-0_75);
+    margin-left : .2rem;
 }
 
 .folio-list__item-cat {
